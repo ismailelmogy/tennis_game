@@ -3,25 +3,27 @@ import 'dart:core';
 import 'package:tennis_game/tennis_game.dart';
 
 class TennisGame1 implements TennisGame {
-  int _m_score1 = 0;
-  int _m_score2 = 0;
-  String _player1Name;
-  String _player2Name;
+  int firstPlayerScore = 0;
+  int secondPlayerScore = 0;
+  String firstPlayerName;
+  String secondPlayerName;
 
-  TennisGame1(String this._player1Name, String this._player2Name);
+  TennisGame1(this.firstPlayerName, this.secondPlayerName);
 
+  @override
   void wonPoint(String playerName) {
-    if (playerName == "player1")
-      _m_score1 += 1;
-    else
-      _m_score2 += 1;
+    if (playerName == "player1") {
+      firstPlayerScore += 1;
+    } else {
+      secondPlayerScore += 1;
+    }
   }
 
   String getScore() {
     String score = "";
     int tempScore = 0;
-    if (_m_score1 == _m_score2) {
-      switch (_m_score1) {
+    if (firstPlayerScore == secondPlayerScore) {
+      switch (firstPlayerScore) {
         case 0:
           score = "Love-All";
           break;
@@ -35,8 +37,8 @@ class TennisGame1 implements TennisGame {
           score = "Deuce";
           break;
       }
-    } else if (_m_score1 >= 4 || _m_score2 >= 4) {
-      int minusResult = _m_score1 - _m_score2;
+    } else if (firstPlayerScore >= 4 || secondPlayerScore >= 4) {
+      int minusResult = firstPlayerScore - secondPlayerScore;
       if (minusResult == 1)
         score = "Advantage player1";
       else if (minusResult == -1)
@@ -48,10 +50,10 @@ class TennisGame1 implements TennisGame {
     } else {
       for (int i = 1; i < 3; i++) {
         if (i == 1)
-          tempScore = _m_score1;
+          tempScore = firstPlayerScore;
         else {
           score += "-";
-          tempScore = _m_score2;
+          tempScore = secondPlayerScore;
         }
         switch (tempScore) {
           case 0:
