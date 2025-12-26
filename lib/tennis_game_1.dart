@@ -19,58 +19,69 @@ class TennisGame1 implements TennisGame {
     }
   }
 
+  // first case ==
+  // second case Love-Fifteen
+  //
+
+  @override
   String getScore() {
-    String score = "";
+    String gameScore = "";
     int tempScore = 0;
     if (firstPlayerScore == secondPlayerScore) {
-      switch (firstPlayerScore) {
-        case 0:
-          score = "Love-All";
-          break;
-        case 1:
-          score = "Fifteen-All";
-          break;
-        case 2:
-          score = "Thirty-All";
-          break;
-        default:
-          score = "Deuce";
-          break;
-      }
+      gameScore = checkGameScoreWhenPlayersEqual(firstPlayerScore);
     } else if (firstPlayerScore >= 4 || secondPlayerScore >= 4) {
       int minusResult = firstPlayerScore - secondPlayerScore;
       if (minusResult == 1)
-        score = "Advantage player1";
+        gameScore = "Advantage player1";
       else if (minusResult == -1)
-        score = "Advantage player2";
+        gameScore = "Advantage player2";
       else if (minusResult >= 2)
-        score = "Win for player1";
+        gameScore = "Win for player1";
       else
-        score = "Win for player2";
+        gameScore = "Win for player2";
     } else {
       for (int i = 1; i < 3; i++) {
         if (i == 1)
           tempScore = firstPlayerScore;
         else {
-          score += "-";
+          gameScore += "-";
           tempScore = secondPlayerScore;
         }
         switch (tempScore) {
           case 0:
-            score += "Love";
+            gameScore += "Love";
             break;
           case 1:
-            score += "Fifteen";
+            gameScore += "Fifteen";
             break;
           case 2:
-            score += "Thirty";
+            gameScore += "Thirty";
             break;
           case 3:
-            score += "Forty";
+            gameScore += "Forty";
             break;
         }
       }
     }
-    return score;
+    return gameScore;
+  }
+
+  String checkGameScoreWhenPlayersEqual(int score) {
+    String resultText = '';
+    switch (firstPlayerScore) {
+      case 0:
+        resultText = "Love-All";
+        break;
+      case 1:
+        resultText = "Fifteen-All";
+        break;
+      case 2:
+        resultText = "Thirty-All";
+        break;
+      default:
+        resultText = "Deuce";
+        break;
+    }
+    return resultText;
   }
 }
