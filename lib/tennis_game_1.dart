@@ -19,10 +19,6 @@ class TennisGame1 implements TennisGame {
     }
   }
 
-  // first case ==
-  // second case Love-Fifteen
-  //
-
   @override
   String getScore() {
     String gameScore = "";
@@ -30,37 +26,29 @@ class TennisGame1 implements TennisGame {
       gameScore = checkGameScoreWhenPlayersEqual(firstPlayerScore);
     } else if (firstPlayerScore < 4 && secondPlayerScore < 4) {
       gameScore = "${checkPlayerScore(firstPlayerScore)}-${checkPlayerScore(secondPlayerScore)}";
-    } else if (firstPlayerScore >= 4 || secondPlayerScore >= 4) {
-      int minusResult = firstPlayerScore - secondPlayerScore;
-      if (minusResult == 1)
-        gameScore = "Advantage player1";
-      else if (minusResult == -1)
-        gameScore = "Advantage player2";
-      else if (minusResult >= 2)
-        gameScore = "Win for player1";
-      else
-        gameScore = "Win for player2";
+    } else {
+      gameScore = checkGameScoreWhenOnePlayerAdvantageOrWin();
     }
     return gameScore;
   }
 
   String checkGameScoreWhenPlayersEqual(int score) {
-    String resultText = '';
+    String gameScore = '';
     switch (firstPlayerScore) {
       case 0:
-        resultText = "Love-All";
+        gameScore = "Love-All";
         break;
       case 1:
-        resultText = "Fifteen-All";
+        gameScore = "Fifteen-All";
         break;
       case 2:
-        resultText = "Thirty-All";
+        gameScore = "Thirty-All";
         break;
       default:
-        resultText = "Deuce";
+        gameScore = "Deuce";
         break;
     }
-    return resultText;
+    return gameScore;
   }
 
   String checkPlayerScore(int score) {
@@ -80,5 +68,21 @@ class TennisGame1 implements TennisGame {
         break;
     }
     return playerScore;
+  }
+
+  String checkGameScoreWhenOnePlayerAdvantageOrWin() {
+    int minusResult = firstPlayerScore - secondPlayerScore;
+    String gameScore = "";
+    if (minusResult == 1) {
+      gameScore = "Advantage player1";
+    } else if (minusResult == -1) {
+      gameScore = "Advantage player2";
+    } else if (minusResult >= 2) {
+      gameScore = "Win for player1";
+    } else {
+      gameScore = "Win for player2";
+    }
+
+    return gameScore;
   }
 }
